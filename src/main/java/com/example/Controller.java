@@ -33,8 +33,16 @@ public class Controller {
     public List<Flight> FindByDirectionsOnDate( @PathVariable String from, @PathVariable String to,@PathVariable String date ){
         return finder.findByDirectionsOnDate(from,to,date);
     }
+    @RequestMapping(value ="/cancel/{flight}/{date}",method = RequestMethod.DELETE)
+    public ResponseEntity CancelBook(@PathVariable String flight,@PathVariable String date, @RequestBody String person ){
+        String[] s=person.split(" ");
+        finder.deleteTicketFromDB(flight, date, s[0], s[1]);
+        return new ResponseEntity( HttpStatus.OK);
+    }
     @RequestMapping(value = "/book/{flight}/{date}", method = RequestMethod.POST)
     public String Book( @PathVariable String flight,@PathVariable String date, @RequestBody Tickets ticket ){
+       if(finder.contains(ticket.idFlight, ticket.name, ticket.surname)!=null)
+           return "You already have a ticket";
         if(finder.isFree(flight,date)){
             finder.putPassengerToDB(ticket);
             return "Copmlited successfully";
