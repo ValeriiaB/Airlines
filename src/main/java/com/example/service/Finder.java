@@ -16,8 +16,11 @@ public class Finder {
     public void putFlightToDB(Flight flight) {
         flightRepository.save(flight);
     }
-    public void deleteTicketFromDB(String idFlight, String name, String surname, String date){
-        ticketsRepository.deleteByIdFlightAndNameAndSurnameAndDate(idFlight, name, surname, date);
+    public void deleteTicketFromDB(String idFlight, String name, String surname){
+        Tickets ticket=ticketsRepository.findByIdFlightAndNameAndSurname(idFlight, name, surname);
+        if(ticket!=null)
+             ticketsRepository.delete(ticket);
+       // ticketsRepository.deleteByIdFlightAndNameAndSurnameAndDate(idFlight, name, surname, date);
     }
     public List<Flight> findByDirections(String from, String to){
         return flightRepository.findByDirectionFromAndDirectionTo(from,to);}
