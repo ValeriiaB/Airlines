@@ -20,4 +20,5 @@ public class Users implements Serializable{
     public String surname;
     public String DOB;//date of birth
     public Float bonuses;//0 for registration;
+    public String position;
 }

@@ -18,7 +18,6 @@ public class Tickets implements Serializable {
     public Long idTicket;
     public Long idFlight;
     public Long idUser;//null if table Users doesn`t contain this user
-    public Long idAdmin;//null if it`s not admin
     public String name;//null if idUser or idAdmin isn`t null
     public String surname;//null if idUser or idAdmin isn`t null
     public Long place;

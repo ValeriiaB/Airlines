@@ -19,52 +19,35 @@ public class AdminController {
     @Autowired
     Finder finder;
 
-    @RequestMapping(value = "/addFlight", method = RequestMethod.POST)
-    public ResponseEntity addFlight(@RequestBody Flight flight) throws IOException {
-        adminUpdate.putFlightToDB(flight);
-        return new ResponseEntity( HttpStatus.OK);
-    }
-    @RequestMapping(value = "/addAdmin", method = RequestMethod.POST)
-    public ResponseEntity addCompany(@RequestBody Administration admin) throws IOException {
-        adminUpdate.putCAdminToDB(admin);
-        return new ResponseEntity( HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/addCompany", method = RequestMethod.POST)
-    public ResponseEntity addCompany(@RequestBody ShippingCompanies company) throws IOException {
-        adminUpdate.putCompanyToDB(company);
-        return new ResponseEntity( HttpStatus.OK);
-    }
-    @RequestMapping(value = "/{idAdmin}/bookTicket/{idFlight}", method = RequestMethod.GET)
-    public String bookTicket(@PathVariable Long idFlight, @PathVariable Long idAdmin ) throws IOException {
-        if(adminUpdate.isContains(idFlight, idAdmin)!=null)
-            return "You already have a ticket";
-        List<Long> free=finder.showFreePlaces(idFlight);
-        if(free.size()==0)
-            return "No tickets";
+    @RequestMapping(value = "/{idAdmin}/addFlight", method = RequestMethod.POST)
+    public String addFlight(@RequestBody Flight flight, @PathVariable Long idAdmin) throws IOException {
+        if(finder.isAdmin(idAdmin)!=null) {
+            adminUpdate.putFlightToDB(flight);
+            return "Complited!";
+        }
         else
-            return free.toString();
+            return "You don`t have an access";
     }
-
-    @RequestMapping(value = "/{idAdmin}/bookTicket/{idFlight}",method = RequestMethod.POST)
-    public ResponseEntity booking(@PathVariable Long idFlight, @PathVariable Long idAdmin,  @RequestBody Long place){
-        Tickets ticket=new Tickets();
-        Float fullPrice=adminUpdate.findPrice(idFlight);
-        ticket.idFlight=idFlight;
-        ticket.idAdmin=idAdmin;
-        ticket.place=place;
-        ticket.paidAmount=fullPrice*3/4;
-        adminUpdate.putTicketToDB(ticket);
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public ResponseEntity addCompany(@RequestBody Users user) throws IOException {
+        adminUpdate.putCAdminToDB(user);
         return new ResponseEntity( HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/{idAdmin}/addCompany", method = RequestMethod.POST)
+    public String addCompany(@RequestBody ShippingCompanies company,@PathVariable Long idAdmin) throws IOException {
+        if(finder.isAdmin(idAdmin)!=null) {
+            adminUpdate.putCompanyToDB(company);
+            return "Complited!";
+        }
+        else
+            return "You don`t have an access";
+    }
 
 
-    /* add new shipping company+
-        add new flight+
-         change flight
-        get ticket with a discount
-        cancel booking
+
+    /*change flight
+    change airport information i.e. set isActive to false
     */
 
 

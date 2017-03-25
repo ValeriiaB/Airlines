@@ -1,14 +1,11 @@
 package com.example.service;
 
 
-import com.example.Administration;
 import com.example.Flight;
 import com.example.ShippingCompanies;
 import com.example.Tickets;
+import com.example.Users;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AdminUpdates {
     @Autowired
@@ -18,17 +15,10 @@ public class AdminUpdates {
     @Autowired
     ShippingCompanyRepository shippingCompanyRepository;
     @Autowired
-    AdminRepository adminRepository;
+    UsersRepository userRepository;
     public void putFlightToDB(Flight flight) {
         flightRepository.save(flight);
     }
-    public void putCAdminToDB(Administration admin){adminRepository.save(admin);}
+    public void putCAdminToDB(Users user){ userRepository.save(user);}
     public void putCompanyToDB(ShippingCompanies company){shippingCompanyRepository.save(company);}
-    public Float findPrice(Long idFlight){return flightRepository.findByIdFlight(idFlight).price;}
-    public Tickets isContains(Long idFlight, Long idAdmin){
-       return ticketsRepository.findByIdFlightAndIdAdmin(idFlight,idAdmin);
-    }
-    public void putTicketToDB(Tickets tickets){
-        ticketsRepository.save(tickets);
-    }
 }

@@ -12,8 +12,7 @@ import java.util.List;
 
 public interface TicketsRepository extends CrudRepository<Tickets, String> {
     //Long countByIdFlightAndDate(Long idFlight, String date);
-    Tickets findByIdFlightAndNameAndSurname(Long idFlight, String name, String surname);
-    Tickets findByIdFlightAndIdAdmin(Long idFlight, Long idAdmin);
+    Tickets findByIdUserAndIdFlight(Long idUser, Long idFlight);
     List <Tickets> findByIdFlight(Long idFlight);
     @Query("SELECT t.place FROM Tickets t where t.idFlight=(:idFlight)")
     List<Long> takedPlaces(@Param("idFlight") Long idFlight);
