@@ -6,18 +6,19 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 @Entity
 @Table(name = "flight")
 public class Flight implements Serializable {
     @Id
-    public String id;
-    public String date;
+    @GeneratedValue
+    public Long idFlight;
+    public Long idAirport;
+    public Long idCompany;
     public String directionFrom;
     public String directionTo;
+    public String date;
+    public String time;
     public Long capacity;
+    public Float price;
 }
 

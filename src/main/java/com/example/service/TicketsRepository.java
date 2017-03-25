@@ -3,10 +3,19 @@ package com.example.service;
 
 import com.example.Flight;
 import com.example.Tickets;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 public interface TicketsRepository extends CrudRepository<Tickets, String> {
-    Long countByIdFlightAndDate(String idFlight, String date);
-    Tickets findByIdFlightAndNameAndSurname(String idFlight, String name, String surname);
+    //Long countByIdFlightAndDate(Long idFlight, String date);
+    Tickets findByIdFlightAndNameAndSurname(Long idFlight, String name, String surname);
+    Tickets findByIdFlightAndIdAdmin(Long idFlight, Long idAdmin);
+    List <Tickets> findByIdFlight(Long idFlight);
+    @Query("SELECT t.place FROM Tickets t where t.idFlight=(:idFlight)")
+    List<Long> takedPlaces(@Param("idFlight") Long idFlight);
     //...
 }
