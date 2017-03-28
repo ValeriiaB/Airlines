@@ -26,7 +26,7 @@ public class Controller {
     public List<Flight> FindByDirections( @PathVariable String from, @PathVariable String to ){
         return finder.findByDirections(from,to);
     }
-    @RequestMapping(value ="/find/{date}",method = RequestMethod.GET)
+    @RequestMapping(value ="/find_by_date/{date}",method = RequestMethod.GET)//just find doen`t work
     public List<Flight> FindOnDate(@PathVariable String date){
         return finder.findByDate(date);
     }
@@ -64,7 +64,7 @@ public class Controller {
     }
     @RequestMapping(value = "/{idUser}/cancel/{idFlight}",method = RequestMethod.DELETE)
     public String cancelBooking( @PathVariable Long idUser, @PathVariable Long idFlight){
-        Tickets ticket=finder.findTicket(idUser,idFlight);
+        Tickets ticket=finder.isContains(idFlight,idUser);
         if(ticket!=null){
             ticketUpdates.deleteTicketFromDB(ticket);
             return "Canceled";
@@ -73,3 +73,4 @@ public class Controller {
             return "You don`t have a ticket";
     }
 }
+/*book and cansel werent checked*/

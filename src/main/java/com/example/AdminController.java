@@ -12,7 +12,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/admin")
 public class AdminController {
     @Autowired
     AdminUpdates adminUpdate;
