@@ -33,16 +33,15 @@ public class Finder {
     public List<Flight> findByDirections(String from, String to) {
         String currentDate = dateFormat.format(calendar.getTime());
         return flightRepository.searchByDirections(currentDate,from,to);
-        // return flightRepository.findByDirectionFromAndDirectionTo(from,to);}
+    }
+    public List<Flight>  findOnPeriod(String startDate, String endDate){
+        return flightRepository.searchByPeriod(startDate,endDate);
     }
     public List<Flight> findByDirectionsOnDate(String from, String to,String date){
         return flightRepository.findByDirectionFromAndDirectionToAndDate(from,to,date);}
     public List<Flight> findByDate(String date){
         return flightRepository.findByDate(date);
     }
-//    public Tickets findTicket(Long idUser, Long idFlight){
-//        return ticketsRepository.findByIdUserAndIdFlight(idUser,idFlight);
-//    }
     public String isAdmin(Long id){
         return usersRepository.findOne(id).position;
     }

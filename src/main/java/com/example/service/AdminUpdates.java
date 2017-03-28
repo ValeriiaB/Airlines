@@ -1,10 +1,7 @@
 package com.example.service;
 
 
-import com.example.Flight;
-import com.example.ShippingCompanies;
-import com.example.Tickets;
-import com.example.Users;
+import com.example.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class AdminUpdates {
@@ -16,9 +13,13 @@ public class AdminUpdates {
     ShippingCompanyRepository shippingCompanyRepository;
     @Autowired
     UsersRepository userRepository;
+    @Autowired
+    AirportRepository airportRepository;
     public void putFlightToDB(Flight flight) {
         flightRepository.save(flight);
     }
     public void putCAdminToDB(Users user){ userRepository.save(user);}
     public void putCompanyToDB(ShippingCompanies company){shippingCompanyRepository.save(company);}
+    public void putAirportToDB(Airport airport){airportRepository.save(airport);}
+    public void updateAirportStatus(String status,Long id){airportRepository.setFixedStatus(status,id);}
 }

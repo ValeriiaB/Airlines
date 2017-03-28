@@ -26,6 +26,10 @@ public class Controller {
     public List<Flight> FindByDirections( @PathVariable String from, @PathVariable String to ){
         return finder.findByDirections(from,to);
     }
+    @RequestMapping(value = "/find_on_period/{startDate}/{endDate}", method = RequestMethod.GET)
+    public List<Flight> FindOnPeriod( @PathVariable String startDate, @PathVariable String endDate ){
+        return finder.findOnPeriod(startDate,endDate);
+    }
     @RequestMapping(value ="/find_by_date/{date}",method = RequestMethod.GET)//just find doen`t work
     public List<Flight> FindOnDate(@PathVariable String date){
         return finder.findByDate(date);
