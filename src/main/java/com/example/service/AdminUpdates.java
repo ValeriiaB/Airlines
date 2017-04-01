@@ -22,12 +22,8 @@ public class AdminUpdates {
     public void putCompanyToDB(ShippingCompanies company){shippingCompanyRepository.save(company);}
     public void putAirportToDB(Airport airport){airportRepository.save(airport);}
     public void updateAirportStatus(boolean status,Long id){
-//        Boolean flag;
-//        if(status.equals("true"))
-//            flag=true;
-//        else
-//            flag=false;
         airportRepository.setFixedStatus(status,id);
     }
+    public void updateBonuses(Float bonus, Long id){userRepository.setFixedBonus(bonus,id);}
 
 }

@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.service.AdminUpdates;
 import com.example.service.Finder;
 import com.example.service.TicketUpdates;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class Controller {
     private Finder finder;
     @Autowired
     private TicketUpdates ticketUpdates;
+    @Autowired
+    private AdminUpdates adminUpdates;
 
 
     @RequestMapping(value = "/find/{from}/{to}", method = RequestMethod.GET)
@@ -61,11 +64,29 @@ public class Controller {
         Users user=finder.findUser(idUser);
         ticket.idFlight=idFlight;
         ticket.idUser=idUser;
+        ticket.name=user.name;
+        ticket.surname=user.surname;
         ticket.place=place;
-       // ticket.paidAmount=fullPrice*3/4;//count bonuses for admin and other; log in and redirect
+        if(user.position!=null)
+          ticket.paidAmount=fullPrice*3/4;//count bonuses for admin and other;
+        else{
+            /*if ( user.bonuses!=0) "Do you want to use your bonuses?"*/
+            ticket.paidAmount=fullPrice;
+            /*update user`s bonuses*/
+            adminUpdates.updateBonuses(fullPrice*3/100,idUser);
+        }
+
         ticketUpdates.putTicketToDB(ticket);
         return new ResponseEntity( HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/bookTicket",method = RequestMethod.POST)
+    public ResponseEntity booking(@RequestBody Tickets ticket){
+        /*registration?*/
+        ticketUpdates.putTicketToDB(ticket);
+        return new ResponseEntity( HttpStatus.OK);
+    }
+    /*add cancel without id*/
     @RequestMapping(value = "/{idUser}/cancel/{idFlight}",method = RequestMethod.DELETE)
     public String cancelBooking( @PathVariable Long idUser, @PathVariable Long idFlight){
         Tickets ticket=finder.isContains(idFlight,idUser);
@@ -77,4 +98,3 @@ public class Controller {
             return "You don`t have a ticket";
     }
 }
-/*book and cansel werent checked*/

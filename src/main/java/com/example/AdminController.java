@@ -53,24 +53,15 @@ public class AdminController {
             return "You don`t have an access";
     }
 
-    @RequestMapping(value = "/{idAdmin}/update/Airport", method = RequestMethod.POST)
-    public String updateAirport(@RequestBody boolean status,@RequestBody Long id,@PathVariable Long idAdmin) throws IOException {
+    @RequestMapping(value = "/{idAdmin}/update/Airport", method = RequestMethod.PATCH)
+    public String updateAirport(@RequestBody Airport airport,@PathVariable Long idAdmin) throws IOException {
         if(finder.isAdmin(idAdmin)!=null) {
-            adminUpdate. updateAirportStatus(status, id);
+            adminUpdate. updateAirportStatus(airport.isActive, airport.idAirport);
             return "Complited!";
         }
         else
             return "You don`t have an access";
     }
-//@RequestMapping(value = "/{idAdmin}/update/Airport/{id}", method = RequestMethod.POST)
-//public String updateAirport(@RequestBody boolean ss,@PathVariable Long idAdmin,@PathVariable Long id) throws IOException {
-//    if(finder.isAdmin(idAdmin)!=null) {
-//        adminUpdate. updateAirportStatus(ss, id);
-//        return "Complited!";
-//    }
-//    else
-//        return "You don`t have an access";
-//}
 
 
     /*change flight
