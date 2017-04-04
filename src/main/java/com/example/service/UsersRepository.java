@@ -13,4 +13,5 @@ public interface UsersRepository extends CrudRepository<Users,Long>{
     @Transactional
     @Query("update Users u set u.bonuses = ?1 where u.idUser = ?2")
     void setFixedBonus(Float bonus, Long id);
+    Users findByEmail(String email);
 }

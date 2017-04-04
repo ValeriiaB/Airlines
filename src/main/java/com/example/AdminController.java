@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.Authentication.SecurityService;
 import com.example.service.AdminUpdates;
 import com.example.service.Finder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,12 @@ public class AdminController {
     AdminUpdates adminUpdate;
     @Autowired
     Finder finder;
+    @Autowired
+    private SecurityService securityService;
 
-    @RequestMapping(value = "/{idAdmin}/addFlight", method = RequestMethod.POST)
-    public String addFlight(@RequestBody Flight flight, @PathVariable Long idAdmin) throws IOException {
+    @RequestMapping(value = "/user/addFlight", method = RequestMethod.POST)
+    public String addFlight(@RequestBody Flight flight) throws IOException {
+        Long idAdmin=securityService.getAuthenticatedUser().idUser;
         if(finder.isAdmin(idAdmin)!=null) {
             adminUpdate.putFlightToDB(flight);
             return "Complited!";
@@ -27,14 +31,15 @@ public class AdminController {
         else
             return "You don`t have an access";
     }
-    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public ResponseEntity addCompany(@RequestBody Users user) throws IOException {
-        adminUpdate.putCAdminToDB(user);
-        return new ResponseEntity( HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+//    public ResponseEntity addUser(@RequestBody Users user) throws IOException {
+//        adminUpdate.putCAdminToDB(user);
+//        return new ResponseEntity( HttpStatus.OK);
+//    }
 
-    @RequestMapping(value = "/{idAdmin}/addCompany", method = RequestMethod.POST)
-    public String addCompany(@RequestBody ShippingCompanies company,@PathVariable Long idAdmin) throws IOException {
+    @RequestMapping(value = "/user/addCompany", method = RequestMethod.POST)
+    public String addCompany(@RequestBody ShippingCompanies company) throws IOException {
+        Long idAdmin=securityService.getAuthenticatedUser().idUser;
         if(finder.isAdmin(idAdmin)!=null) {
             adminUpdate.putCompanyToDB(company);
             return "Complited!";
@@ -43,8 +48,9 @@ public class AdminController {
             return "You don`t have an access";
     }
 
-    @RequestMapping(value = "/{idAdmin}/addAirport", method = RequestMethod.POST)
-    public String addAirport(@RequestBody Airport airport,@PathVariable Long idAdmin) throws IOException {
+    @RequestMapping(value = "/user/addAirport", method = RequestMethod.POST)
+    public String addAirport(@RequestBody Airport airport) throws IOException {
+        Long idAdmin=securityService.getAuthenticatedUser().idUser;
         if(finder.isAdmin(idAdmin)!=null) {
             adminUpdate.putAirportToDB(airport);
             return "Complited!";
@@ -53,8 +59,9 @@ public class AdminController {
             return "You don`t have an access";
     }
 
-    @RequestMapping(value = "/{idAdmin}/update/Airport", method = RequestMethod.PATCH)
-    public String updateAirport(@RequestBody Airport airport,@PathVariable Long idAdmin) throws IOException {
+    @RequestMapping(value = "/user/update/Airport", method = RequestMethod.PATCH)
+    public String updateAirport(@RequestBody Airport airport) throws IOException {
+        Long idAdmin=securityService.getAuthenticatedUser().idUser;
         if(finder.isAdmin(idAdmin)!=null) {
             adminUpdate. updateAirportStatus(airport.isActive, airport.idAirport);
             return "Complited!";
@@ -62,11 +69,6 @@ public class AdminController {
         else
             return "You don`t have an access";
     }
-
-
-    /*change flight
-    change airport information i.e. set isActive to false/change phone
-    */
 
 
 }

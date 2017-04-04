@@ -54,4 +54,5 @@ public class Finder {
 
     public Float findPrice(Long idFlight){return flightRepository.findByIdFlight(idFlight).price;}
     public Users findUser(Long id){return usersRepository.findOne(id);}
+    public Users findUserByEmail(String email){return usersRepository.findByEmail(email);}
 }

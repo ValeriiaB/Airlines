@@ -16,6 +16,8 @@ public class Users implements Serializable{
     @Id
     @GeneratedValue
     public Long idUser;
+    public String email;
+    public String password;
     public String name;
     public String surname;
     public String DOB;//date of birth
