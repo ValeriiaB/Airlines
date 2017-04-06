@@ -37,6 +37,12 @@ public class Finder {
     public List<Flight>  findOnPeriod(String startDate, String endDate){
         return flightRepository.searchByPeriod(startDate,endDate);
     }
+    public List<Flight>  findAllFlights(){
+        List<Flight> flights= new ArrayList<>();
+        flightRepository.findAll()
+                .forEach(flights::add);
+        return flights;
+    }
     public List<Flight> findByDirectionsOnDate(String from, String to,String date){
         return flightRepository.findByDirectionFromAndDirectionToAndDate(from,to,date);}
     public List<Flight> findByDate(String date){

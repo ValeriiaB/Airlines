@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.LockModeType;
 import java.io.IOException;
@@ -33,14 +35,25 @@ public class Controller {
         securityService.autologin(user.email, user.password);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> loginUser(@RequestBody Users user){
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public ResponseEntity<?> loginUser(@RequestBody Users user){
+//        boolean ans = securityService.loginUser(user.email, user.password);
+//        if (!ans)
+//            return new ResponseEntity<>("Password incorrect or user does not exist", HttpStatus.FORBIDDEN);
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+//    }
+@GetMapping(value = "/login")
+public String loginForm(Model model){
+        model.addAttribute("login", new Users());
+    return "login";
+    }
+    @PostMapping(value = "/login")
+        public ResponseEntity<?>  loginSubmit(@ModelAttribute Users user) {
         boolean ans = securityService.loginUser(user.email, user.password);
         if (!ans)
             return new ResponseEntity<>("Password incorrect or user does not exist", HttpStatus.FORBIDDEN);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-
 
 
     @RequestMapping(value = "/find/{from}/{to}", method = RequestMethod.GET)
@@ -63,7 +76,10 @@ public class Controller {
     public List<Flight> FindByDirectionsOnDate( @PathVariable Long idAirport ){
         return finder.findByAirport(idAirport);
     }
-
+    @RequestMapping("/flights")
+    public List<Flight> showAllFlights(){
+        return finder.findAllFlights();
+    }
     @RequestMapping(value = "/user/bookTicket/{idFlight}", method = RequestMethod.GET)
     public String bookTicket(@PathVariable Long idFlight ) throws IOException {
        Long idUser=securityService.getAuthenticatedUser().idUser;

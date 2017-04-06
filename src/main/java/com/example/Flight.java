@@ -20,5 +20,6 @@ public class Flight implements Serializable {
     public String time;
     public Long capacity;
     public Float price;
+
 }
 
