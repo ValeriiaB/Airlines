@@ -1,4 +1,3 @@
-var app = angular.module("AirLines",[]);
 app.controller("FlightController",function ($scope,$http ) {
     $scope.flights=[];
 

@@ -31,29 +31,30 @@ public class Controller {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ResponseEntity<?> addUserDB(@RequestBody Users user){
+
         adminUpdates.putCAdminToDB(user);
         securityService.autologin(user.email, user.password);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-//    @RequestMapping(value = "/login", method = RequestMethod.POST)
-//    public ResponseEntity<?> loginUser(@RequestBody Users user){
-//        boolean ans = securityService.loginUser(user.email, user.password);
-//        if (!ans)
-//            return new ResponseEntity<>("Password incorrect or user does not exist", HttpStatus.FORBIDDEN);
-//        return new ResponseEntity<>(user, HttpStatus.OK);
-//    }
-@GetMapping(value = "/login")
-public String loginForm(Model model){
-        model.addAttribute("login", new Users());
-    return "login";
-    }
-    @PostMapping(value = "/login")
-        public ResponseEntity<?>  loginSubmit(@ModelAttribute Users user) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseEntity<?> loginUser(@RequestBody Users user){
         boolean ans = securityService.loginUser(user.email, user.password);
         if (!ans)
             return new ResponseEntity<>("Password incorrect or user does not exist", HttpStatus.FORBIDDEN);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+//@GetMapping(value = "/login")
+//public String loginForm(Model model){
+//        model.addAttribute("login", new Users());
+//    return "login";
+//    }
+//    @PostMapping(value = "/login")
+//        public ResponseEntity<?>  loginSubmit(@ModelAttribute Users user) {
+//        boolean ans = securityService.loginUser(user.email, user.password);
+//        if (!ans)
+//            return new ResponseEntity<>("Password incorrect or user does not exist", HttpStatus.FORBIDDEN);
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+//    }
 
 
     @RequestMapping(value = "/find/{from}/{to}", method = RequestMethod.GET)
