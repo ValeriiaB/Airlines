@@ -28,6 +28,7 @@ app.controller('signController', ["$http", "$scope", "$location",
                     name: $scope.name,
                     surname: $scope.surname,
                     dob: $scope.dob,
+                    bonuses:0,
                     position: "guest"
                 })
                 .then(function (response) {

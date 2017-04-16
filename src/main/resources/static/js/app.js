@@ -17,6 +17,14 @@ app.config(function($routeProvider){
             templateUrl: 'view/flightstable.html',
             controller: 'FlightController'
         })
+        .when('/bonuses', {
+            templateUrl: 'view/bonus.html',
+            controller: 'BonusController'
+        })
+        .when('/user', {
+            templateUrl: 'view/profile.html',
+            controller: 'ProfileController'
+        })
         .otherwise(
             { redirectTo: '/'});
 
@@ -32,6 +40,24 @@ app.config(function($routeProvider){
         $scope.user = response.data;
     });
 
+    $scope.myFunction=function(){
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+// Close the dropdown menu if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
     $scope.logOut = function () {
         $http.post(url + '/logout').then(function (response) {
             $scope.showUser = false;

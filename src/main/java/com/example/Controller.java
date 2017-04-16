@@ -43,19 +43,11 @@ public class Controller {
             return new ResponseEntity<>("Password incorrect or user does not exist", HttpStatus.FORBIDDEN);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-//@GetMapping(value = "/login")
-//public String loginForm(Model model){
-//        model.addAttribute("login", new Users());
-//    return "login";
-//    }
-//    @PostMapping(value = "/login")
-//        public ResponseEntity<?>  loginSubmit(@ModelAttribute Users user) {
-//        boolean ans = securityService.loginUser(user.email, user.password);
-//        if (!ans)
-//            return new ResponseEntity<>("Password incorrect or user does not exist", HttpStatus.FORBIDDEN);
-//        return new ResponseEntity<>(user, HttpStatus.OK);
-//    }
-
+    @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
+    public ResponseEntity<?> getCurrentUser() {
+        Users user = securityService.getAuthenticatedUser();
+        return new ResponseEntity<Object>(user, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/find/{from}/{to}", method = RequestMethod.GET)
     public List<Flight> FindByDirections( @PathVariable String from, @PathVariable String to ){
@@ -117,11 +109,14 @@ public class Controller {
 
     @RequestMapping(value = "/bookTicket",method = RequestMethod.POST)
     public ResponseEntity booking(@RequestBody Tickets ticket){
-        /*registration?*/
         ticketUpdates.putTicketToDB(ticket);
         return new ResponseEntity( HttpStatus.OK);
     }
-    /*add cancel without id*/
+    @RequestMapping(value = "/bonuses",method = RequestMethod.GET)
+    public float countBonus(){
+        Long idUser=securityService.getAuthenticatedUser().idUser;
+        return finder.findUser(idUser).bonuses;
+    }
     @RequestMapping(value = "/user/cancel/{idFlight}",method = RequestMethod.DELETE)
     public String cancelBooking(@PathVariable Long idFlight){
         Long idUser=securityService.getAuthenticatedUser().idUser;

@@ -1,0 +1,169 @@
+.main-image{
+    text-align:center;
+}
+.menu{
+    background: linear-gradient(deepskyblue,lightpink);
+    /*background: linear-gradient(darkblue,hotpink);*/
+    color:white;
+}
+/* Dropdown Button */
+/*.menu-list{*/
+    /*padding-left: 30px;*/
+    /*padding-top: 20px;*/
+/*}*/
+/*.home-section{*/
+    /*float:left;*/
+    /*width: 10%;*/
+/*}*/
+/*.section{*/
+    /*margin-left: 10%;*/
+    /*float:left;*/
+/*}*/
+/*.active{*/
+    /*background-color: white;*/
+/*}*/
+/*.photo{*/
+    /*padding-right: 5px;*/
+/*}*/
+/*.container-fluid {*/
+    /*background-color: #337ab1;*/
+/*}*/
+
+.form-signin{
+    max-width:330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.field{
+    max-width:330px;
+    padding: 15px;
+    margin: 0 auto;
+    font-size: 200%;
+}
+.navbar-default .navbar-nav > li > a {
+    color: white;
+}
+/*!* Dropdown Button *!*/
+.dropbtn {
+    /*background: linear-gradient(lightpink,deepskyblue);*/
+    /*background: linear-gradient(dodgerblue,hotpink);*/
+    background-color:deepskyblue;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/*!* The container <div> - needed to position the dropdown content *!*/
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/*!* Dropdown Content (Hidden by Default) *!*/
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: deepskyblue;
+    min-width: 77px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+body {
+    background: url("../images/1.jpg") top left/ 100% no-repeat;
+}
+/*!* Links inside the dropdown *!*/
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.back{
+    background-color: deepskyblue;
+}
+/*!* Change color of dropdown links on hover *!*/
+/*.dropdown-content a:hover {background-color: #337ab1}*/
+
+/*!* Show the dropdown menu on hover *!*/
+.dropdown:hover .dropdown-content {
+    color: white;
+    display: block;
+    z-index: 2;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: pink;
+    color: white;
+
+}
+
+/*.row {*/
+    /*margin-top: 50px;*/
+    /*max-width: 900px;*/
+    /*background-color: cornflowerblue;*/
+/*}*/
+
+/*.panelText {*/
+    /*color: white;*/
+    /*font-size: 20px;*/
+/*}*/
+
+/*.text-right{*/
+    /*padding-bottom:20px;*/
+/*}*/
+
+/*.rectangle {*/
+    /*width:100px;*/
+    /*height:75px;*/
+    /*background:#337ab1;*/
+/*}*/
+
+/*.figure-input{*/
+    /*width:100px;*/
+    /*height:25px;*/
+    /*text-align: center;*/
+    /*display: block;*/
+    /*margin-right: auto;*/
+    /*margin-left: auto;*/
+/*}*/
+
+/*.rhombus {*/
+    /*width: 100px;*/
+    /*height: 100px;*/
+    /*background: #337ab1;*/
+    /*!* Rotate *!*/
+    /*-webkit-transform: rotate(-45deg);*/
+    /*-moz-transform: rotate(-45deg);*/
+    /*-ms-transform: rotate(-45deg);*/
+    /*-o-transform: rotate(-45deg);*/
+    /*transform: rotate(-45deg);*/
+    /*!* Rotate Origin *!*/
+    /*-webkit-transform-origin: 0 100%;*/
+    /*-moz-transform-origin: 0 100%;*/
+    /*-ms-transform-origin: 0 100%;*/
+    /*-o-transform-origin: 0 100%;*/
+    /*transform-origin: 0 100%;*/
+    /*margin: 60px 0 10px 310px;*/
+/*}*/
+
+/*.oval {*/
+    /*width: 100px;*/
+    /*height: 50px;*/
+    /*background: #337ab1;*/
+    /*-moz-border-radius: 100px / 50px;*/
+    /*-webkit-border-radius: 100px / 50px;*/
+    /*border-radius: 100px / 50px;*/
+/*}*/
+
+/*.parallelogram {*/
+    /*width: 100px;*/
+    /*height: 75px;*/
+    /*background: #337ab1;*/
+    /*!* Skew *!*/
+    /*-webkit-transform: skew(20deg);*/
+    /*-moz-transform: skew(20deg);*/
+    /*-o-transform: skew(20deg);*/
+    /*transform: skew(20deg);*/
+/*}*/
