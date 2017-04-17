@@ -13,5 +13,5 @@ public class TicketUpdates {
     UsersRepository userRepository;
 
     public void putTicketToDB(Tickets ticket){ticketsRepository.save(ticket);}
-    public void deleteTicketFromDB(Tickets ticket){ticketsRepository.delete(ticket);}
+    public void deleteTicketFromDB(Long id){ticketsRepository.deleteByIdTicket(id);}
 }

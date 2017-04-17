@@ -48,6 +48,10 @@ public class Controller {
         Users user = securityService.getAuthenticatedUser();
         return new ResponseEntity<Object>(user, HttpStatus.OK);
     }
+    @RequestMapping("/mytickets")
+    public List<Tickets> showUsersTickets(){
+        return finder.findTickets();
+    }
 
     @RequestMapping(value = "/find/{from}/{to}", method = RequestMethod.GET)
     public List<Flight> FindByDirections( @PathVariable String from, @PathVariable String to ){
@@ -73,6 +77,7 @@ public class Controller {
     public List<Flight> showAllFlights(){
         return finder.findAllFlights();
     }
+
     @RequestMapping(value = "/user/bookTicket/{idFlight}", method = RequestMethod.GET)
     public String bookTicket(@PathVariable Long idFlight ) throws IOException {
        Long idUser=securityService.getAuthenticatedUser().idUser;
@@ -91,6 +96,7 @@ public class Controller {
         Tickets ticket=new Tickets();
         Float fullPrice=finder.findPrice(idFlight);
         Users user=finder.findUser(idUser);
+        System.out.println(user.password);
         ticket.idFlight=idFlight;
         ticket.idUser=idUser;
         ticket.name=user.name;
@@ -102,7 +108,6 @@ public class Controller {
             ticket.paidAmount=fullPrice;
             adminUpdates.updateBonuses(fullPrice*3/100,idUser);
         }
-
         ticketUpdates.putTicketToDB(ticket);
         return new ResponseEntity( HttpStatus.OK);
     }
@@ -117,15 +122,16 @@ public class Controller {
         Long idUser=securityService.getAuthenticatedUser().idUser;
         return finder.findUser(idUser).bonuses;
     }
-    @RequestMapping(value = "/user/cancel/{idFlight}",method = RequestMethod.DELETE)
-    public String cancelBooking(@PathVariable Long idFlight){
-        Long idUser=securityService.getAuthenticatedUser().idUser;
-        Tickets ticket=finder.isContains(idFlight,idUser);
-        if(ticket!=null){
-            ticketUpdates.deleteTicketFromDB(ticket);
-            return "Canceled";
-        }
-        else
-            return "You don`t have a ticket";
+    @RequestMapping(value = "/cancel/{idTicket}",method = RequestMethod.DELETE)
+    public void cancelBooking(@PathVariable Long idTicket){
+        ticketUpdates.deleteTicketFromDB(idTicket);
+   //     Long idUser=securityService.getAuthenticatedUser().idUser;
+//        Tickets ticket=finder.isContains(idFlight,idUser);
+//        if(ticket!=null){
+//            ticketUpdates.deleteTicketFromDB(ticket);
+//            return "Canceled";
+//        }
+//        else
+//            return "You don`t have a ticket";
     }
 }

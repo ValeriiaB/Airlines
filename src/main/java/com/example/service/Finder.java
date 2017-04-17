@@ -1,6 +1,7 @@
 package com.example.service;
 
 
+import com.example.Authentication.SecurityService;
 import com.example.Flight;
 import com.example.Tickets;
 import com.example.Users;
@@ -18,6 +19,8 @@ public class Finder {
     UsersRepository usersRepository;
     @Autowired
     TicketsRepository ticketsRepository;
+    @Autowired
+    private SecurityService securityService;
 
     static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     static Calendar calendar = Calendar.getInstance();
@@ -42,6 +45,10 @@ public class Finder {
         flightRepository.findAll()
                 .forEach(flights::add);
         return flights;
+    }
+    public List<Tickets>findTickets(){
+        Long idUser=securityService.getAuthenticatedUser().idUser;
+        return ticketsRepository.findByIdUser(idUser);
     }
     public List<Flight> findByDirectionsOnDate(String from, String to,String date){
         return flightRepository.findByDirectionFromAndDirectionToAndDate(from,to,date);}

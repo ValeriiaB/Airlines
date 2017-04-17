@@ -21,9 +21,19 @@ app.config(function($routeProvider){
             templateUrl: 'view/bonus.html',
             controller: 'BonusController'
         })
-        .when('/user', {
-            templateUrl: 'view/profile.html',
-            controller: 'ProfileController'
+        .when('/mytickets', {
+            templateUrl: 'view/my_tickets.html',
+            controller: 'TicketController'
+            // controllerAs:'ctrl',
+            // resolve: {
+            //     users: function ($q, TicketService) {
+            //         console.log('Load all ticket');
+            //         var deferred = $q.defer();
+            //         TicketService.loadAllUsers().then(deferred.resolve, deferred.resolve);
+            //         return deferred.promise;
+            //     }
+            // }
+
         })
         .otherwise(
             { redirectTo: '/'});
