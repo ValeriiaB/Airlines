@@ -1,6 +1,7 @@
 package com.example.Controllers;
 
 import com.example.Authentication.SecurityService;
+import com.example.DBase.Flight;
 import com.example.DBase.Tickets;
 import com.example.DBase.Users;
 import com.example.service.AdminUpdates;
@@ -61,20 +62,7 @@ public class UserController {
     public ResponseEntity booking(@PathVariable Long idFlight,  @PathVariable Long place){
         Long idUser=securityService.getAuthenticatedUser().getIdUser();
         Tickets ticket=new Tickets();
-        Float fullPrice=finder.findPrice(idFlight);
-        Users user=finder.findUser(idUser);
-        System.out.println(user.getPassword());
-        ticket.setIdFlight(idFlight);
-        ticket.setIdUser(idUser);
-        ticket.setName(user.getName());
-        ticket.setSurname(user.getSurname());
-        ticket.setPlace(place);
-        if(user.getPosition()!=null)
-            ticket.setPaidAmount(fullPrice*3/4);//count bonuses for admin and other;
-        else{
-            ticket.setPaidAmount(fullPrice);
-            adminUpdates.updateBonuses(fullPrice*3/100,idUser);
-        }
+        ticket=createTicket(idFlight,idUser,place);
         ticketUpdates.putTicketToDB(ticket);
         /*update user`s bonus*/
         return new ResponseEntity( HttpStatus.OK);
@@ -85,4 +73,27 @@ public class UserController {
         Long idUser=securityService.getAuthenticatedUser().getIdUser();
         return finder.findUser(idUser).getBonuses();
     }
+
+   public Tickets createTicket(Long idFlight, Long idUser, Long place){
+        Tickets ticket=new Tickets();
+       Float fullPrice=finder.findFlight(idFlight).getPrice();
+       Users user=finder.findUser(idUser);
+       Flight flight=finder.findFlight(idFlight);
+       System.out.println(user.getPassword());
+       ticket.setIdFlight(idFlight);
+       ticket.setIdUser(idUser);
+       ticket.setName(user.getName());
+       ticket.setSurname(user.getSurname());
+       ticket.setPlace(place);
+       ticket.setDirectionFrom(flight.getDirectionFrom());
+       ticket.setDirectionTo(flight.getDirectionTo());
+       ticket.setDeparture(flight.getDate()+"/"+flight.getTime());
+       if(user.getPosition()!=null)
+           ticket.setPaidAmount(fullPrice*3/4);//count bonuses for admin and other;
+       else{
+           ticket.setPaidAmount(fullPrice);
+           adminUpdates.updateBonuses(fullPrice*3/100,idUser);
+       }
+        return ticket;
+   }
 }

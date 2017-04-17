@@ -64,8 +64,8 @@ public class Finder {
     public Tickets isContains(Long idFlight, Long idUser){
         return ticketsRepository.findByIdFlightAndIdUser(idFlight,idUser);
     }
-
-    public Float findPrice(Long idFlight){return flightRepository.findByIdFlight(idFlight).getPrice();}
+    public Flight findFlight(Long idFlight){return flightRepository.findByIdFlight(idFlight);}
+    //public Float findPrice(Long idFlight){return flightRepository.findByIdFlight(idFlight).getPrice();}
     public Users findUser(Long id){return usersRepository.findOne(id);}
     public Users findUserByEmail(String email){return usersRepository.findByEmail(email);}
 }
