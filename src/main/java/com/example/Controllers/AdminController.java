@@ -1,16 +1,15 @@
-package com.example;
+package com.example.Controllers;
 
 import com.example.Authentication.SecurityService;
+import com.example.DBase.Airport;
+import com.example.DBase.Flight;
+import com.example.DBase.ShippingCompanies;
 import com.example.service.AdminUpdates;
 import com.example.service.Finder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.List;
 
 @RestController
 public class AdminController {
@@ -23,7 +22,7 @@ public class AdminController {
 
     @RequestMapping(value = "/user/addFlight", method = RequestMethod.POST)
     public String addFlight(@RequestBody Flight flight) throws IOException {
-        Long idAdmin=securityService.getAuthenticatedUser().idUser;
+        Long idAdmin=securityService.getAuthenticatedUser().getIdUser();
         if(finder.isAdmin(idAdmin)!=null) {
             adminUpdate.putFlightToDB(flight);
             return "Complited!";
@@ -39,7 +38,7 @@ public class AdminController {
 
     @RequestMapping(value = "/user/addCompany", method = RequestMethod.POST)
     public String addCompany(@RequestBody ShippingCompanies company) throws IOException {
-        Long idAdmin=securityService.getAuthenticatedUser().idUser;
+        Long idAdmin=securityService.getAuthenticatedUser().getIdUser();
         if(finder.isAdmin(idAdmin)!=null) {
             adminUpdate.putCompanyToDB(company);
             return "Complited!";
@@ -50,7 +49,7 @@ public class AdminController {
 
     @RequestMapping(value = "/user/addAirport", method = RequestMethod.POST)
     public String addAirport(@RequestBody Airport airport) throws IOException {
-        Long idAdmin=securityService.getAuthenticatedUser().idUser;
+        Long idAdmin=securityService.getAuthenticatedUser().getIdUser();
         if(finder.isAdmin(idAdmin)!=null) {
             adminUpdate.putAirportToDB(airport);
             return "Complited!";
@@ -61,9 +60,9 @@ public class AdminController {
 
     @RequestMapping(value = "/user/update/Airport", method = RequestMethod.PATCH)
     public String updateAirport(@RequestBody Airport airport) throws IOException {
-        Long idAdmin=securityService.getAuthenticatedUser().idUser;
+        Long idAdmin=securityService.getAuthenticatedUser().getIdUser();
         if(finder.isAdmin(idAdmin)!=null) {
-            adminUpdate. updateAirportStatus(airport.isActive, airport.idAirport);
+            adminUpdate. updateAirportStatus(airport.getIsActive(), airport.getIdAirport());
             return "Complited!";
         }
         else

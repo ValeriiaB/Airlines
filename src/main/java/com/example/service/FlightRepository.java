@@ -1,7 +1,7 @@
 package com.example.service;
 
 
-import com.example.Flight;
+import com.example.DBase.Flight;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

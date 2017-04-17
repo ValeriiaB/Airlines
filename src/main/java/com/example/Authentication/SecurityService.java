@@ -1,6 +1,6 @@
 package com.example.Authentication;
 
-import com.example.Users;
+import com.example.DBase.Users;
 
 public interface SecurityService {
 

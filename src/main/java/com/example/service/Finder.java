@@ -2,9 +2,9 @@ package com.example.service;
 
 
 import com.example.Authentication.SecurityService;
-import com.example.Flight;
-import com.example.Tickets;
-import com.example.Users;
+import com.example.DBase.Flight;
+import com.example.DBase.Tickets;
+import com.example.DBase.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.SimpleDateFormat;
@@ -25,7 +25,7 @@ public class Finder {
     static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     static Calendar calendar = Calendar.getInstance();
     public List<Long> showFreePlaces(Long idFlight){
-         long max=flightRepository.findByIdFlight(idFlight).capacity;
+         long max=flightRepository.findByIdFlight(idFlight).getCapacity();
             List<Long> taked=ticketsRepository.takedPlaces(idFlight);
             List<Long> free=new ArrayList<>();
             for(int i=1;i<=max;i++)
@@ -47,7 +47,7 @@ public class Finder {
         return flights;
     }
     public List<Tickets>findTickets(){
-        Long idUser=securityService.getAuthenticatedUser().idUser;
+        Long idUser=securityService.getAuthenticatedUser().getIdUser();
         return ticketsRepository.findByIdUser(idUser);
     }
     public List<Flight> findByDirectionsOnDate(String from, String to,String date){
@@ -56,7 +56,7 @@ public class Finder {
         return flightRepository.findByDate(date);
     }
     public String isAdmin(Long id){
-        return usersRepository.findOne(id).position;
+        return usersRepository.findOne(id).getPosition();
     }
     public List<Flight> findByAirport(Long idArport){
         return flightRepository.findByIdAirport(idArport);
@@ -65,7 +65,7 @@ public class Finder {
         return ticketsRepository.findByIdFlightAndIdUser(idFlight,idUser);
     }
 
-    public Float findPrice(Long idFlight){return flightRepository.findByIdFlight(idFlight).price;}
+    public Float findPrice(Long idFlight){return flightRepository.findByIdFlight(idFlight).getPrice();}
     public Users findUser(Long id){return usersRepository.findOne(id);}
     public Users findUserByEmail(String email){return usersRepository.findByEmail(email);}
 }

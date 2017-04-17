@@ -1,4 +1,4 @@
-package com.example;
+package com.example.DBase;
 
 
 import lombok.*;
@@ -12,14 +12,16 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "Airport")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Airport  implements Serializable {
     @Id
     @GeneratedValue
-    public Long idAirport;
-    public String name;
-    public String country;
-    public String city;
-    public String phone;
-    public String adress;
-    public Boolean isActive;
+    private Long idAirport;
+    private String name;
+    private String country;
+    private String city;
+    private String phone;
+    private String adress;
+    private Boolean isActive;
 }

@@ -1,6 +1,8 @@
-package com.example;
+package com.example.DBase;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,11 +13,13 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "Companies")
+@AllArgsConstructor
+@NoArgsConstructor
 public class ShippingCompanies implements Serializable{
     @Id
     @GeneratedValue
-    public Long idCompany;
-    public String companyName;
-    public String country;
-    public String site;
+    private Long idCompany;
+    private String companyName;
+    private String country;
+    private String site;
 }

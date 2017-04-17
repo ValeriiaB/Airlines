@@ -1,7 +1,7 @@
 package com.example.service;
 
 
-import com.example.Airport;
+import com.example.DBase.Airport;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

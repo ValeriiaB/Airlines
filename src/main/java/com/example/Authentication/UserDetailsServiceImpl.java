@@ -1,6 +1,6 @@
 package com.example.Authentication;
 
-import com.example.Users;
+import com.example.DBase.Users;
 import com.example.service.Finder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         if (user == null) throw new UsernameNotFoundException(email);
-        grantedAuthorities.add(new SimpleGrantedAuthority(user.position));
-        return new org.springframework.security.core.userdetails.User(user.email, user.password, grantedAuthorities);
+        grantedAuthorities.add(new SimpleGrantedAuthority(user.getPosition()));
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantedAuthorities);
     }
 }

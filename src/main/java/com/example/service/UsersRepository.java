@@ -1,7 +1,7 @@
 package com.example.service;
 
 
-import com.example.Users;
+import com.example.DBase.Users;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

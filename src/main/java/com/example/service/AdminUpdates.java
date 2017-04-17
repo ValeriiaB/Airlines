@@ -1,7 +1,10 @@
 package com.example.service;
 
 
-import com.example.*;
+import com.example.DBase.Airport;
+import com.example.DBase.Flight;
+import com.example.DBase.ShippingCompanies;
+import com.example.DBase.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class AdminUpdates {

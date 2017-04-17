@@ -3,7 +3,7 @@ package com.example.Authentication;
 
 import java.util.logging.*;
 
-import com.example.Users;
+import com.example.DBase.Users;
 import com.example.service.Finder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -60,9 +60,14 @@ public class SecurityServiceImpl implements SecurityService {
     public Users getAuthenticatedUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Users user = finder.findUserByEmail(((org.springframework.security.core.userdetails.User)auth.getPrincipal()).getUsername());
-        user.password="";
-        return user;
+        return Users.builder()
+                .idUser(user.getIdUser())
+                .bonuses(user.getBonuses())
+                .DOB(user.getDOB())
+                .email(user.getEmail())
+                .name(user.getName())
+                .position(user.getPosition())
+                .surname(user.getSurname())
+                .build();
     }
-
-
 }
