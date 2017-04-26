@@ -46,6 +46,16 @@ public class Finder {
                 .forEach(flights::add);
         return flights;
     }
+
+    public Long findFree(Long id){
+        Long tacked= ticketsRepository.countByIdFlight(id);
+        Long capacity=flightRepository.findByIdFlight(id).getCapacity();
+        if(capacity-tacked>0)
+            return tacked+1;
+        else
+            return capacity-tacked;
+    }
+
     public List<Tickets>findTickets(){
         Long idUser=securityService.getAuthenticatedUser().getIdUser();
         return ticketsRepository.findByIdUser(idUser);

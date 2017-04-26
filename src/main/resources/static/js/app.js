@@ -21,19 +21,13 @@ app.config(function($routeProvider){
             templateUrl: 'view/bonus.html',
             controller: 'BonusController'
         })
+        .when('/user/booking', {
+            templateUrl: 'view/user_book.html',
+            controller: 'BookingController'
+        })
         .when('/mytickets', {
             templateUrl: 'view/my_tickets.html',
             controller: 'TicketController'
-            // controllerAs:'ctrl',
-            // resolve: {
-            //     users: function ($q, TicketService) {
-            //         console.log('Load all ticket');
-            //         var deferred = $q.defer();
-            //         TicketService.loadAllUsers().then(deferred.resolve, deferred.resolve);
-            //         return deferred.promise;
-            //     }
-            // }
-
         })
         .otherwise(
             { redirectTo: '/'});
@@ -43,16 +37,21 @@ app.config(function($routeProvider){
 
     $scope.user = undefined;
     $scope.showUser = false;
+    $scope.isAdmin = false;
 
     $http.get(url + '/currentUser').then(function (response) {
         console.log(response);
         $scope.showUser = true;
         $scope.user = response.data;
+        console.log($scope.user.position);
+        console.log($scope.user.position.localeCompare('guest'));
+        if($scope.user.position.localeCompare('guest')==1)
+            $scope.isAdmin = true;
     });
 
     $scope.myFunction=function(){
         document.getElementById("myDropdown").classList.toggle("show");
-    }
+    };
 
 // Close the dropdown menu if the user clicks outside of it
     window.onclick = function(event) {

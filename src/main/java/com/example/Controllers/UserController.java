@@ -46,22 +46,25 @@ public class UserController {
         return finder.findTickets();
     }
 
-    @RequestMapping(value = "/user/freePlaces/{idFlight}", method = RequestMethod.GET)
-    public String bookTicket(@PathVariable Long idFlight ) throws IOException {
-        Long idUser=securityService.getAuthenticatedUser().getIdUser();
-        if(finder.isContains(idFlight, idUser)!=null)
-            return "You already have a ticket";
-        List<Long> free=finder.showFreePlaces(idFlight);
-        if(free.size()==0)
-            return "No tickets";
-        else
-            return free.toString();
-    }
+//    @RequestMapping(value = "/user/freePlaces/{idFlight}", method = RequestMethod.GET)
+//    public String bookTicket(@PathVariable Long idFlight ) throws IOException {
+//        Long idUser=securityService.getAuthenticatedUser().getIdUser();
+//        if(finder.isContains(idFlight, idUser)!=null)
+//            return "You already have a ticket";
+//        List<Long> free=finder.showFreePlaces(idFlight);
+//        if(free.size()==0)
+//            return "No tickets";
+//        else
+//            return free.toString();
+//    }
 
-    @RequestMapping(value = "/user/bookTicket/{idFlight}/{place}",method = RequestMethod.POST)//order
-    public ResponseEntity booking(@PathVariable Long idFlight,  @PathVariable Long place){
+    @RequestMapping(value = "/user/bookTicket/{idFlight}",method = RequestMethod.POST)//order
+    public ResponseEntity booking(@PathVariable Long idFlight){
         Long idUser=securityService.getAuthenticatedUser().getIdUser();
         Tickets ticket=new Tickets();
+        Long place=finder.findFree(idFlight);
+        if(place <= 0)
+            return new ResponseEntity( HttpStatus.valueOf("No free places"));
         ticket=createTicket(idFlight,idUser,place);
         ticketUpdates.putTicketToDB(ticket);
         /*update user`s bonus*/
