@@ -1,9 +1,7 @@
-app.controller("TicketController",function ($scope,$http, $window ) {
+app.controller("Show_ticketController",function ($scope,$http ,$rootScope, $window) {
     $scope.tickets=[];
+    $scope.tickets=$rootScope.data;
 
-    $http.get('http://localhost:8181/mytickets').success(function (data) {
-        $scope.tickets=data;
-    });
     $scope.removeTicket = function (id) {
         return $http.delete('/cancel/'+id, {idTicket: id}).then(function () {
             $window.location.reload();
@@ -11,5 +9,4 @@ app.controller("TicketController",function ($scope,$http, $window ) {
             $scope.canProceed = false;
         })
     };
-
 });

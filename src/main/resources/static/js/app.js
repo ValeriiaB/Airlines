@@ -17,7 +17,7 @@ app.config(function($routeProvider){
             templateUrl: 'view/flightstable.html',
             controller: 'FlightController'
         })
-        .when('/bonuses', {
+        .when('/user/bonuses', {
             templateUrl: 'view/bonus.html',
             controller: 'BonusController'
         })
@@ -25,7 +25,15 @@ app.config(function($routeProvider){
             templateUrl: 'view/user_book.html',
             controller: 'BookingController'
         })
-        .when('/mytickets', {
+        .when('/bookTicket', {
+            templateUrl: 'view/book_without_registration.html',
+            controller: 'Anonym_bookingController'
+        })
+        .when('/showTicket', {
+            templateUrl: 'view/my_tickets.html',
+            controller: 'Show_ticketController'
+        })
+        .when('/user/mytickets', {
             templateUrl: 'view/my_tickets.html',
             controller: 'TicketController'
         })
@@ -43,10 +51,9 @@ app.config(function($routeProvider){
         console.log(response);
         $scope.showUser = true;
         $scope.user = response.data;
-        console.log($scope.user.position);
-        console.log($scope.user.position.localeCompare('guest'));
-        if($scope.user.position.localeCompare('guest')==1)
+        if($scope.user.position.localeCompare('guest')!=0) {
             $scope.isAdmin = true;
+        }
     });
 
     $scope.myFunction=function(){

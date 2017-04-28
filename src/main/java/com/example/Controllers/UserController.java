@@ -10,10 +10,7 @@ import com.example.service.TicketUpdates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -71,6 +68,21 @@ public class UserController {
         return new ResponseEntity( HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/bookTicket",method = RequestMethod.PATCH)
+    public Tickets booking(@RequestBody Tickets ticket){
+        Long place=finder.findFree(ticket.getIdFlight());
+//        if(place <= 0)
+//            return new ResponseEntity( HttpStatus.valueOf("No free places"));
+        Flight flight=finder.findFlight(ticket.getIdFlight());
+        ticket.setDirectionFrom(flight.getDirectionFrom());
+        ticket.setDirectionTo(flight.getDirectionTo());
+        ticket.setPlace(place);
+        ticket.setPaidAmount(flight.getPrice());
+        ticket.setDeparture(flight.getDate()+"/"+flight.getTime());
+        ticketUpdates.putTicketToDB(ticket);
+        return ticket;
+    }
+
     @RequestMapping(value = "/bonuses",method = RequestMethod.GET)
     public float countBonus(){
         Long idUser=securityService.getAuthenticatedUser().getIdUser();
@@ -82,7 +94,6 @@ public class UserController {
        Float fullPrice=finder.findFlight(idFlight).getPrice();
        Users user=finder.findUser(idUser);
        Flight flight=finder.findFlight(idFlight);
-       System.out.println(user.getPassword());
        ticket.setIdFlight(idFlight);
        ticket.setIdUser(idUser);
        ticket.setName(user.getName());

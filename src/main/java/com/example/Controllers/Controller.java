@@ -68,11 +68,5 @@ public class Controller {
         return finder.findAllFlights();
     }
 
-    @RequestMapping(value = "/bookTicket",method = RequestMethod.POST)
-    public ResponseEntity booking(@RequestBody Tickets ticket){
-        ticketUpdates.putTicketToDB(ticket);
-        return new ResponseEntity( HttpStatus.OK);
-    }
-
 
 }

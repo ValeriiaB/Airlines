@@ -22,9 +22,9 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-if="showUser" ng-if="isAdmin"><a ng-href="#/"> Admin page</a></li>
+                    <li ng-if="showUser && isAdmin"><a ng-href="#/"> Admin page</a></li>
                     <li ><a ng-href="#/flights" > Flights</a></li>
-                    <li ng-if="!showUser"><a ng-href="#//bookTicket" > Book ticket</a></li>
+                    <li ng-if="!showUser"><a ng-href="#/bookTicket" > Book ticket</a></li>
                     <li ng-if="showUser"><a ng-href="#/Link"> Search flight</a></li>
                     <li ng-if="showUser"> <a ng-click="logOut()"> LogOut </a>
                     </li>
@@ -33,11 +33,11 @@
                     <li ng-if="!showUser"><a ng-href="#/registration"> Sign Up</a></li>
                 </ul>
                 <div ng-if="showUser" class="dropdown navbar-left ">
-                    <button onclick="myFunction()" class="dropbtn">{{user.position}}</button>
+                    <button onclick="myFunction()" class="dropbtn">{{user.name}} {{user.surname}}</button>
                     <div id="myDropdown" class="dropdown-content">
-                        <a ng-href="#/mytickets">My tickets</a>
+                        <a ng-href="#/user/mytickets">My tickets</a>
                         <a ng-href="#/user/booking">Book ticket</a>
-                        <a ng-href="#/bonuses">My bonuses</a>
+                        <a ng-if="!isAdmin" ng-href="#/user/bonuses">My bonuses</a>
                     </div>
                 </div>
             </div>
@@ -57,6 +57,8 @@
 <script src="js/controllers/bonusController.js"></script>
 <script src="js/controllers/signController.js"></script>
 <script src="js/controllers/bookingController.js"></script>
+<script src="js/controllers/anonym_bookController.js"></script>
+<script src="js/controllers/show_ticketController.js"></script>
 
 </body>
 </html>

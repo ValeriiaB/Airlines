@@ -9,7 +9,7 @@ app.controller('BookingController', ["$http", "$scope", "$location",
 
         $scope.book = function () {
             return $http.post(url + '/user/bookTicket/'+ $scope.id).then(function () {
-                $location.path('/mytickets');
+                $location.path('/user/mytickets');
             }).catch(function (){
                 $scope.canProceed = false;
             })
