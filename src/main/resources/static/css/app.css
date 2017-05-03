@@ -45,6 +45,9 @@
     min-width: 77px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
+a {
+    color: white;
+}
 body {
     background: url("../images/1.jpg") top left/ 100% no-repeat;
 }

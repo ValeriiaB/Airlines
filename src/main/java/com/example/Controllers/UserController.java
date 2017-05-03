@@ -1,6 +1,7 @@
 package com.example.Controllers;
 
 import com.example.Authentication.SecurityService;
+import com.example.DBase.Airport;
 import com.example.DBase.Flight;
 import com.example.DBase.Tickets;
 import com.example.DBase.Users;
@@ -74,7 +75,8 @@ public class UserController {
 //        if(place <= 0)
 //            return new ResponseEntity( HttpStatus.valueOf("No free places"));
         Flight flight=finder.findFlight(ticket.getIdFlight());
-        ticket.setDirectionFrom(flight.getDirectionFrom());
+        Airport airport = finder.findAirport(flight.getIdAirport());
+        ticket.setDirectionFrom(flight.getDirectionFrom() + "(" + airport.getName() + "," + airport.getCity() + ")");
         ticket.setDirectionTo(flight.getDirectionTo());
         ticket.setPlace(place);
         ticket.setPaidAmount(flight.getPrice());
@@ -94,19 +96,20 @@ public class UserController {
        Float fullPrice=finder.findFlight(idFlight).getPrice();
        Users user=finder.findUser(idUser);
        Flight flight=finder.findFlight(idFlight);
+       Airport airport = finder.findAirport(flight.getIdAirport());
        ticket.setIdFlight(idFlight);
        ticket.setIdUser(idUser);
        ticket.setName(user.getName());
        ticket.setSurname(user.getSurname());
        ticket.setPlace(place);
-       ticket.setDirectionFrom(flight.getDirectionFrom());
+       ticket.setDirectionFrom(flight.getDirectionFrom() + "(" + airport.getName() + "," + airport.getCity() + ")");
        ticket.setDirectionTo(flight.getDirectionTo());
        ticket.setDeparture(flight.getDate()+"/"+flight.getTime());
-       if(user.getPosition()!=null)
-           ticket.setPaidAmount(fullPrice*3/4);//count bonuses for admin and other;
+       if(!user.getPosition().equals("guest"))
+           ticket.setPaidAmount(fullPrice * 3 / 4);// if admin
        else{
            ticket.setPaidAmount(fullPrice);
-           adminUpdates.updateBonuses(fullPrice*3/100,idUser);
+           adminUpdates.updateBonuses((user.getBonuses() + fullPrice * 5 / 100),idUser);
        }
         return ticket;
    }

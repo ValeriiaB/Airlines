@@ -2,6 +2,7 @@ package com.example.service;
 
 
 import com.example.Authentication.SecurityService;
+import com.example.DBase.Airport;
 import com.example.DBase.Flight;
 import com.example.DBase.Tickets;
 import com.example.DBase.Users;
@@ -19,6 +20,8 @@ public class Finder {
     UsersRepository usersRepository;
     @Autowired
     TicketsRepository ticketsRepository;
+    @Autowired
+    AirportRepository airportRepository;
     @Autowired
     private SecurityService securityService;
 
@@ -39,6 +42,10 @@ public class Finder {
     }
     public List<Flight>  findOnPeriod(String startDate, String endDate){
         return flightRepository.searchByPeriod(startDate,endDate);
+    }
+
+    public Airport findAirport(Long idAirport){
+        return airportRepository.findOne(idAirport);
     }
     public List<Flight>  findAllFlights(){
         List<Flight> flights= new ArrayList<>();

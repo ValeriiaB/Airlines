@@ -13,9 +13,25 @@ app.config(function($routeProvider){
             templateUrl: 'view/sign_up.html',
             controller: 'signController'
         })
+        .when("/addFlight", {
+             templateUrl: 'view/AddNewFlight.html',
+             controller: 'AddNewFlightController'
+        })
+        .when("/addAirport", {
+            // templateUrl: 'view/sign_up.html',
+            // controller: 'signController'
+        })
+        .when("/updateAirport", {
+            // templateUrl: 'view/sign_up.html',
+            // controller: 'signController'
+        })
         .when('/flights', {
             templateUrl: 'view/flightstable.html',
             controller: 'FlightController'
+        })
+        .when('/AdminPage', {
+            templateUrl: 'view/adminPage.html',
+            // controller: 'FlightController'
         })
         .when('/user/bonuses', {
             templateUrl: 'view/bonus.html',
@@ -40,7 +56,8 @@ app.config(function($routeProvider){
         .otherwise(
             { redirectTo: '/'});
 
-}).controller("MainController", ['$scope','$http', function($scope, $http) {
+ })
+    .controller("MainController", ['$scope','$http', function($scope, $http) {
     var url = 'http://localhost:8181';
 
     $scope.user = undefined;
@@ -73,7 +90,7 @@ app.config(function($routeProvider){
                 }
             }
         }
-    }
+    };
     $scope.logOut = function () {
         $http.post(url + '/logout').then(function (response) {
             $scope.showUser = false;

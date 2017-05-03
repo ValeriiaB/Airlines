@@ -22,7 +22,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-if="showUser && isAdmin"><a ng-href="#/"> Admin page</a></li>
+                    <li ng-if="showUser && isAdmin"><a ng-href="#/AdminPage"> Admin page</a></li>
                     <li ><a ng-href="#/flights" > Flights</a></li>
                     <li ng-if="!showUser"><a ng-href="#/bookTicket" > Book ticket</a></li>
                     <li ng-if="showUser"><a ng-href="#/Link"> Search flight</a></li>
@@ -59,6 +59,7 @@
 <script src="js/controllers/bookingController.js"></script>
 <script src="js/controllers/anonym_bookController.js"></script>
 <script src="js/controllers/show_ticketController.js"></script>
+<script src="js/controllers/addFlight.js"></script>
 
 </body>
 </html>
