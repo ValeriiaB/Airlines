@@ -18,12 +18,12 @@ app.config(function($routeProvider){
              controller: 'AddNewFlightController'
         })
         .when("/addAirport", {
-            // templateUrl: 'view/sign_up.html',
-            // controller: 'signController'
+            templateUrl: 'view/AddNewAirport.html',
+            controller: 'AirportController'
         })
         .when("/updateAirport", {
-            // templateUrl: 'view/sign_up.html',
-            // controller: 'signController'
+            templateUrl: 'view/UpdateAirport.html',
+            controller: 'AirportController'
         })
         .when('/flights', {
             templateUrl: 'view/flightstable.html',
