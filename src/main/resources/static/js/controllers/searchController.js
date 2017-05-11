@@ -1,11 +1,9 @@
 
-app.controller('SearchController', ["$http", "$scope", "$location",
-    function ($http, $scope, $location) {
+app.controller('SearchController', ["$http", "$scope", "$location",  "$rootScope",
+    function ($http, $scope, $location, $rootScope) {
 
         var url = 'http://localhost:8181';
 
-        $scope.st_date = undefined;
-        $scope.end_date = undefined;
         $scope.direction_from = undefined;
         $scope.direction_to = undefined;
 
@@ -20,7 +18,7 @@ app.controller('SearchController', ["$http", "$scope", "$location",
                     direction_to : $scope.direction_to
                 })
                 .then(function (response) {
-                    $rootScope.data=response;
+                    $rootScope.res=response;
                     $location.path("/search_results");
                 }).catch(function (response){
                     $scope.canProceed = false;

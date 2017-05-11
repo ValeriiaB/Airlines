@@ -1,5 +1,5 @@
-app.controller("ShowSearchResults",function ($scope,$http ,$rootScope) {
+app.controller("ShowSearchResults",function ($scope, $rootScope) {
+    console.log($rootScope.res);
     $scope.flights=[];
-    $scope.flights=$rootScope.data;
-
+    $scope.flights=$rootScope.res;
 });
