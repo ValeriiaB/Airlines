@@ -7,6 +7,8 @@ import com.example.DBase.ShippingCompanies;
 import com.example.service.AdminUpdates;
 import com.example.service.Finder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -21,14 +23,9 @@ public class AdminController {
     private SecurityService securityService;
 
     @RequestMapping(value = "/user/addFlight", method = RequestMethod.POST)
-    public String addFlight(@RequestBody Flight flight) throws IOException {
-        Long idAdmin=securityService.getAuthenticatedUser().getIdUser();
-        if(finder.isAdmin(idAdmin)!=null) {
+    public ResponseEntity addFlight(@RequestBody Flight flight) throws IOException {
             adminUpdate.putFlightToDB(flight);
-            return "Complited!";
-        }
-        else
-            return "You don`t have an access";
+            return new ResponseEntity( HttpStatus.OK);
     }
 //    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
 //    public ResponseEntity addUser(@RequestBody Users user) throws IOException {
@@ -48,26 +45,14 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/user/addAirport", method = RequestMethod.POST)
-    public String addAirport(@RequestBody Airport airport) throws IOException {
-        Long idAdmin=securityService.getAuthenticatedUser().getIdUser();
-        if(finder.isAdmin(idAdmin)!=null) {
+    public ResponseEntity addAirport(@RequestBody Airport airport) throws IOException {
             adminUpdate.putAirportToDB(airport);
-            return "Complited!";
-        }
-        else
-            return "You don`t have an access";
+            return new ResponseEntity( HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/update/Airport", method = RequestMethod.PATCH)
-    public String updateAirport(@RequestBody Airport airport) throws IOException {
-        Long idAdmin=securityService.getAuthenticatedUser().getIdUser();
-        if(finder.isAdmin(idAdmin)!=null) {
+    public ResponseEntity updateAirport(@RequestBody Airport airport) throws IOException {
             adminUpdate. updateAirportStatus(airport.getIsActive(), airport.getIdAirport());
-            return "Complited!";
-        }
-        else
-            return "You don`t have an access";
+            return new ResponseEntity( HttpStatus.OK);
     }
-
-
 }

@@ -2,7 +2,7 @@ var app = angular.module('app', ['ngRoute','ngResource']);
 app.config(function($routeProvider){
     $routeProvider
         .when('/',{
-            templateUrl: 'view/index.html',
+            templateUrl: 'index.html',
             controller: 'MainController'
         })
         .when('/login',{
@@ -52,6 +52,14 @@ app.config(function($routeProvider){
         .when('/user/mytickets', {
             templateUrl: 'view/my_tickets.html',
             controller: 'TicketController'
+        })
+        .when('/search', {
+            templateUrl: 'view/search_flight.html',
+            controller: 'SearchController'
+        })
+        .when('/search_results', {
+            templateUrl: 'view/flightstable.html',
+            controller: 'ShowSearchResults'
         })
         .otherwise(
             { redirectTo: '/'});

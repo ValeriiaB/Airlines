@@ -25,7 +25,7 @@ app.controller('AddNewFlightController', ["$http", "$scope", "$location", "$root
                 capacity: $scope.capacity,
                 price: $scope.price
             }).then(function () {
-                $location.path('/flights');
+                $location.path('/AdminPage');
             }).catch(function (){
                 $scope.canProceed = false;
             })

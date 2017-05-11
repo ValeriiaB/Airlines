@@ -1,4 +1,4 @@
-app.controller('AirportController', ["$http", "$scope", "$location", "$rootScope",
+app.controller('AirportController', ["$http", "$scope", "$location",
     function ($http, $scope, $location) {
 
         var url = 'http://localhost:8181';
@@ -21,7 +21,7 @@ app.controller('AirportController', ["$http", "$scope", "$location", "$rootScope
                 adress: $scope.adress,
                 isActive: $scope.isActive
             }).then(function () {
-                $location.path('/flights');
+                $location.path('/AdminPage');
             }).catch(function (){
                 $scope.canProceed = false;
             })
@@ -33,7 +33,7 @@ app.controller('AirportController', ["$http", "$scope", "$location", "$rootScope
                 idAirport: $scope.idAirport,
                 isActive: $scope.isActive
             }).then(function () {
-                $location.path('/flights');
+                $location.path('/AdminPage');
             }).catch(function (){
                 $scope.canProceed = false;
             })
