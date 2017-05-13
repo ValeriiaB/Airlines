@@ -25,7 +25,6 @@
                     <li ng-if="showUser && isAdmin"><a ng-href="#/AdminPage"> Admin page</a></li>
                     <li ><a ng-href="#/flights" > Flights</a></li>
                     <li ng-if="!showUser"><a ng-href="#/bookTicket" > Book ticket</a></li>
-                    <li><a ng-href="#/search"> Search flight</a></li>
                     <li ng-if="showUser"> <a ng-click="logOut()"> LogOut </a>
                     </li>
 
@@ -57,12 +56,8 @@
 <script src="js/controllers/bonusController.js"></script>
 <script src="js/controllers/signController.js"></script>
 <script src="js/controllers/bookingController.js"></script>
-<script src="js/controllers/anonym_bookController.js"></script>
 <script src="js/controllers/show_ticketController.js"></script>
-<script src="js/controllers/addFlight.js"></script>
 <script src="js/controllers/airportController.js"></script>
-<script src="js/controllers/searchController.js"></script>
-<script src="js/controllers/showSearchResults.js"></script>
 
 </body>
 </html>

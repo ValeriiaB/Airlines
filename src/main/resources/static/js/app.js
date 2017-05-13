@@ -15,7 +15,7 @@ app.config(function($routeProvider){
         })
         .when("/addFlight", {
              templateUrl: 'view/AddNewFlight.html',
-             controller: 'AddNewFlightController'
+             controller: 'FlightController'
         })
         .when("/addAirport", {
             templateUrl: 'view/AddNewAirport.html',
@@ -43,7 +43,7 @@ app.config(function($routeProvider){
         })
         .when('/bookTicket', {
             templateUrl: 'view/book_without_registration.html',
-            controller: 'Anonym_bookingController'
+            controller: 'BookingController'
         })
         .when('/showTicket', {
             templateUrl: 'view/my_tickets.html',
@@ -52,14 +52,6 @@ app.config(function($routeProvider){
         .when('/user/mytickets', {
             templateUrl: 'view/my_tickets.html',
             controller: 'TicketController'
-        })
-        .when('/search', {
-            templateUrl: 'view/search_flight.html',
-            controller: 'SearchController'
-        })
-        .when('/search_results', {
-            templateUrl: 'view/flightstable.html',
-            controller: 'ShowSearchResults'
         })
         .otherwise(
             { redirectTo: '/'});
