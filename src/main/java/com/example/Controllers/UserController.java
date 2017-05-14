@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sun.security.krb5.internal.Ticket;
 
 import java.io.IOException;
 import java.util.List;
@@ -82,6 +83,7 @@ public class UserController {
         ticket.setPaidAmount(flight.getPrice());
         ticket.setDeparture(flight.getDate()+"/"+flight.getTime());
         ticketUpdates.putTicketToDB(ticket);
+        System.out.println(ticket.getIdTicket());
         return ticket;
     }
 
@@ -90,8 +92,15 @@ public class UserController {
         Long idUser=securityService.getAuthenticatedUser().getIdUser();
         return finder.findUser(idUser).getBonuses();
     }
+//    @RequestMapping(value = "/show_ticket/{idTicket}",method = RequestMethod.GET)
+//    public Tickets findTicket(@PathVariable Long idTicket){
+//        System.out.println(idTicket);
+//        System.out.println(finder.findTicket(idTicket).getDirectionFrom());
+//        return finder.findTicket(idTicket);
+//    }
 
-   public Tickets createTicket(Long idFlight, Long idUser, Long place){
+
+    public Tickets createTicket(Long idFlight, Long idUser, Long place){
         Tickets ticket=new Tickets();
        Float fullPrice=finder.findFlight(idFlight).getPrice();
        Users user=finder.findUser(idUser);

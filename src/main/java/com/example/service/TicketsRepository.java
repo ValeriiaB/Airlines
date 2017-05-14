@@ -14,7 +14,7 @@ public interface TicketsRepository extends CrudRepository<Tickets, Long> {
     Tickets findByIdFlightAndIdUser( Long idFlight, Long idUser);
     //List <Tickets> findByIdFlight(Long idFlight);
     List <Tickets> findByIdUser(Long idUser);
-    //Tickets findByIdTicket( Long id);
+    Tickets findByIdTicket( Long id);
     @Query("SELECT t.place FROM Tickets t where t.idFlight=(:idFlight)")
     List<Long> takedPlaces(@Param("idFlight") Long idFlight);
     Long countByIdFlight(Long idFlight);

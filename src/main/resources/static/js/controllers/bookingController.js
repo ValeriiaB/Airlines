@@ -21,12 +21,12 @@ app.controller('BookingController', ["$http", "$scope", "$location","$rootScope"
         $scope.canProceed = true;
 
         $scope.anonym_book = function () {
-            return $http.patch(url + '/bookTicket' , {
+             $http.patch(url + '/bookTicket' , {
                 name: $scope.name,
                 surname: $scope.surname,
                 idFlight: $scope.idFlight
             }).then(function (response) {
-                $rootScope.data=response;
+                $rootScope.current=response;
                 $location.path("/showTicket");
             }).catch(function (){
                 $scope.canProceed = false;

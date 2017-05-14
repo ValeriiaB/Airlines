@@ -28,8 +28,8 @@
                     <li ng-if="showUser"> <a ng-click="logOut()"> LogOut </a>
                     </li>
 
-                    <li ng-if="!showUser"><a ng-href="#/login" > Login </a></li>
-                    <li ng-if="!showUser"><a ng-href="#/registration"> Sign Up</a></li>
+                    <li ng-if="!showUser"><a ng-href="#/login" > LogIn </a></li>
+                    <li ng-if="!showUser"><a ng-href="#/registration"> SignUp</a></li>
                 </ul>
                 <div ng-if="showUser" class="dropdown navbar-left ">
                     <button onclick="myFunction()" class="dropbtn">{{user.name}} {{user.surname}}</button>

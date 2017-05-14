@@ -1,11 +1,12 @@
 <div class="generic-container">
     <div class="panel panel-default">
-        <div class="panel-heading "><span class="lead">List of Tickets </span></div>
+        <div class="panel-heading "><span class="lead">My ticket </span></div>
         <div class="panel-body">
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
                     <tr>
+                        <th>Flight number</th>
                         <th>From</th>
                         <th>To</th>
                         <th>Date and Time</th>
@@ -15,7 +16,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="item in tickets">
+                    <tr ng-repeat="item in tickets" ng-if="item.place != null">
+                        <td>{{item.idFlight}}</td>
                         <td>{{item.directionFrom}}</td>
                         <td>{{item.directionTo}}</td>
                         <td>{{item.departure}}</td>

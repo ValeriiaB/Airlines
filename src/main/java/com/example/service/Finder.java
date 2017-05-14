@@ -53,6 +53,8 @@ public class Finder {
                 .forEach(flights::add);
         return flights;
     }
+    public Tickets findTicket(Long idTicket){return ticketsRepository.findByIdTicket(idTicket);}
+    public Flight findFlight(Long idFlight){return flightRepository.findByIdFlight(idFlight);}
 
     public Long findFree(Long id){
         Long tacked= ticketsRepository.countByIdFlight(id);
@@ -81,7 +83,7 @@ public class Finder {
     public Tickets isContains(Long idFlight, Long idUser){
         return ticketsRepository.findByIdFlightAndIdUser(idFlight,idUser);
     }
-    public Flight findFlight(Long idFlight){return flightRepository.findByIdFlight(idFlight);}
+
     //public Float findPrice(Long idFlight){return flightRepository.findByIdFlight(idFlight).getPrice();}
     public Users findUser(Long id){return usersRepository.findOne(id);}
     public Users findUserByEmail(String email){return usersRepository.findByEmail(email);}
