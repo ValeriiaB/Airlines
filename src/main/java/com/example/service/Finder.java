@@ -6,13 +6,14 @@ import com.example.DBase.Airport;
 import com.example.DBase.Flight;
 import com.example.DBase.Tickets;
 import com.example.DBase.Users;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
+@Setter
 public class Finder {
     @Autowired
     FlightRepository flightRepository;
@@ -27,6 +28,7 @@ public class Finder {
 
     static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     static Calendar calendar = Calendar.getInstance();
+
     public List<Long> showFreePlaces(Long idFlight){
          long max=flightRepository.findByIdFlight(idFlight).getCapacity();
             List<Long> taked=ticketsRepository.takedPlaces(idFlight);
@@ -47,6 +49,7 @@ public class Finder {
     public Airport findAirport(Long idAirport){
         return airportRepository.findOne(idAirport);
     }
+
     public List<Flight>  findAllFlights(){
         List<Flight> flights= new ArrayList<>();
         flightRepository.findAll()
@@ -54,6 +57,7 @@ public class Finder {
         return flights;
     }
     public Tickets findTicket(Long idTicket){return ticketsRepository.findByIdTicket(idTicket);}
+
     public Flight findFlight(Long idFlight){return flightRepository.findByIdFlight(idFlight);}
 
     public Long findFree(Long id){
@@ -83,8 +87,6 @@ public class Finder {
     public Tickets isContains(Long idFlight, Long idUser){
         return ticketsRepository.findByIdFlightAndIdUser(idFlight,idUser);
     }
-
-    //public Float findPrice(Long idFlight){return flightRepository.findByIdFlight(idFlight).getPrice();}
     public Users findUser(Long id){return usersRepository.findOne(id);}
     public Users findUserByEmail(String email){return usersRepository.findByEmail(email);}
 }

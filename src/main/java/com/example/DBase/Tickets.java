@@ -1,5 +1,7 @@
 package com.example.DBase;
 
+import com.example.service.AdminUpdates;
+import com.example.service.Finder;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,4 +25,5 @@ public class Tickets implements Serializable {
     private String departure;
     private Long place;
     private Float paidAmount;
+
 }

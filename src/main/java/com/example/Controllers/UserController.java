@@ -8,6 +8,7 @@ import com.example.DBase.Users;
 import com.example.service.AdminUpdates;
 import com.example.service.Finder;
 import com.example.service.TicketUpdates;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import sun.security.krb5.internal.Ticket;
 
 import java.io.IOException;
 import java.util.List;
+@Setter
 @RestController
 public class UserController {
 
@@ -59,12 +61,12 @@ public class UserController {
 
     @RequestMapping(value = "/user/bookTicket/{idFlight}",method = RequestMethod.POST)//order
     public ResponseEntity booking(@PathVariable Long idFlight){
-        Long idUser=securityService.getAuthenticatedUser().getIdUser();
-        Tickets ticket=new Tickets();
-        Long place=finder.findFree(idFlight);
+        Long idUser = securityService.getAuthenticatedUser().getIdUser();
+        Long place = finder.findFree(idFlight);
         if(place <= 0)
-            return new ResponseEntity( HttpStatus.valueOf("No free places"));
-        ticket=createTicket(idFlight,idUser,place);
+            return new ResponseEntity( HttpStatus.BAD_REQUEST);
+        Tickets ticket = new Tickets();
+        ticketUpdates.createTicket(idFlight,idUser,place);
         ticketUpdates.putTicketToDB(ticket);
         /*update user`s bonus*/
         return new ResponseEntity( HttpStatus.OK);
@@ -73,8 +75,6 @@ public class UserController {
     @RequestMapping(value = "/bookTicket",method = RequestMethod.PATCH)
     public Tickets booking(@RequestBody Tickets ticket){
         Long place=finder.findFree(ticket.getIdFlight());
-//        if(place <= 0)
-//            return new ResponseEntity( HttpStatus.valueOf("No free places"));
         Flight flight=finder.findFlight(ticket.getIdFlight());
         Airport airport = finder.findAirport(flight.getIdAirport());
         ticket.setDirectionFrom(flight.getDirectionFrom() + "(" + airport.getName() + "," + airport.getCity() + ")");
@@ -100,26 +100,5 @@ public class UserController {
 //    }
 
 
-    public Tickets createTicket(Long idFlight, Long idUser, Long place){
-        Tickets ticket=new Tickets();
-       Float fullPrice=finder.findFlight(idFlight).getPrice();
-       Users user=finder.findUser(idUser);
-       Flight flight=finder.findFlight(idFlight);
-       Airport airport = finder.findAirport(flight.getIdAirport());
-       ticket.setIdFlight(idFlight);
-       ticket.setIdUser(idUser);
-       ticket.setName(user.getName());
-       ticket.setSurname(user.getSurname());
-       ticket.setPlace(place);
-       ticket.setDirectionFrom(flight.getDirectionFrom() + "(" + airport.getName() + "," + airport.getCity() + ")");
-       ticket.setDirectionTo(flight.getDirectionTo());
-       ticket.setDeparture(flight.getDate()+"/"+flight.getTime());
-       if(!user.getPosition().equals("guest"))
-           ticket.setPaidAmount(fullPrice * 3 / 4);// if admin
-       else{
-           ticket.setPaidAmount(fullPrice);
-           adminUpdates.updateBonuses((user.getBonuses() + fullPrice * 5 / 100),idUser);
-       }
-        return ticket;
-   }
+
 }
